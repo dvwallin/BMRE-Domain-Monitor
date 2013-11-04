@@ -67,7 +67,7 @@ function bmre_domain_monitor_install() {
     'bmre_key', 'bmre_value'   
    ) VALUES (
     'set_time_limit, '60'
-   )"
+   );";
 
    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
    dbDelta($sql);
