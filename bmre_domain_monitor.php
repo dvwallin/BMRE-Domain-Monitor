@@ -66,7 +66,7 @@ function bmre_domain_monitor_install() {
    $set_time_limit_default_value_sql = "INSERT INTO $settings_table_name (
     bmre_key, bmre_value   
    ) VALUES (
-    'set_time_limit, '60'
+    'set_time_limit', '60'
    );";
 
    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
