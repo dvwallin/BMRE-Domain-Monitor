@@ -39,6 +39,7 @@ function bmre_domain_monitor_install() {
 
    $table_name = $wpdb->prefix . "bmre_domain_monitor";
    $second_table_name = $wpdb->prefix . "bmre_domain_monitor_domain_checker";
+   $settings_table_name = $wpdb->prefix . "bmre_domain_monitor_settings";
       
    $sql = "CREATE TABLE $table_name (
   id int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -55,6 +56,13 @@ function bmre_domain_monitor_install() {
   last_check date NOT NULL,
   UNIQUE KEY id (id)
     );";
+    
+   $settings_sql = "CREATE TABLE $settings_table_name (
+						       id int(11) unsigned NOT NLL AUTO_INCREMENT,
+						       bmre_key varchar(256) NOT NULL,
+						       bmre_value varchar(256) NOT NULL,
+						       UNIQUE KEY id (id)
+						       );";
 
 
    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
