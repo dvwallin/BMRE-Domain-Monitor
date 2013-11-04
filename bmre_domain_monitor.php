@@ -73,7 +73,7 @@ function bmre_domain_monitor_install() {
    dbDelta($sql);
    dbDelta($second_sql);
    dbDelta($settings_sql);
-   dbDelta($set_time_limit_default_value_sql); 
+   $wpdb->query($set_time_limit_default_value_sql); 
    add_option("bmre_domain_monitor_db_version", $bmre_domain_monitor_db_version);
 }
 
