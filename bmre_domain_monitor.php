@@ -64,7 +64,7 @@ function bmre_domain_monitor_install() {
       );";
 
    $set_time_limit_default_value_sql = "INSERT INTO $settings_table_name (
-    'bmre_key', 'bmre_value'   
+    bmre_key, bmre_value   
    ) VALUES (
     'set_time_limit, '60'
    );";
