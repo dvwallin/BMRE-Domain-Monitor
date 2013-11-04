@@ -57,7 +57,7 @@ function bmre_domain_monitor_install() {
     );";
     
    $settings_sql = "CREATE TABLE $settings_table_name (
-      id int(11) unsigned NOT NLL AUTO_INCREMENT,
+      id int(11) unsigned NOT NULL AUTO_INCREMENT,
        bmre_key varchar(256) NOT NULL,
        bmre_value varchar(256) NOT NULL,
        UNIQUE KEY id (id)
