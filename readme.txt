@@ -1,11 +1,10 @@
 === BMRE Domain Monitor ===
-Contributors: dvwallin
+Contributors: dvwallin,
 Tags: domain, monitor, seo
 Requires at least: 3.0.1
-Tested up to: 3.4
-Stable tag: 0.8.9
-License: WTFPL
-License URI: http://en.wikipedia.org/wiki/WTFPL
+Tested up to: 3.7.1
+Stable tag: 0.9.2
+License: GPLv3
 
 This plugin is meant to monitor your domainnames and warn you before they expire.
 
@@ -19,20 +18,18 @@ It also has the feature (optional) to suggest domains that are similar to the on
 
 DISCLAIMER: Do not ONLY trust this plugin for your domains. It works well but I can not be held responsible if something should go wrong and your domain does actually expire.
 
-LICENSE:
-           DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
-                   Version 2, December 2004
+LICENSE:This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
 
-Copyright (C) 2012 David V. Wallin <david@dwall.in>
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-Everyone is permitted to copy and distribute verbatim or modified
-copies of this license document, and changing it is allowed as long
-as the name is changed.
-
-           DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
-  TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
-
- 0. You just DO WHAT THE FUCK YOU WANT TO.
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 == Installation ==
 
@@ -50,35 +47,3 @@ e.g.
 
 1. This is the admin page to add domains and monitor them.
 
-== Changelog ==
-
-= 0.8.9 =
-Added the very missing license-information
-= 0.8.8 =
-Final stable version
-= 0.8.7 =
-PHP ending bug
-= 0.8.5 =
-Simple cleanup and updated readme and descriptions
-= 0.8.4 =
-The formatting of the lock-files were wrong and made the plug search for similar domains on every load
-= 0.8.3 =
-The check-files are now written to /tmp for security and to avoid permission-errors
-= 0.8.2 =
-0.8.1 caused a crashed due to a small simple misstake
-= 0.8.1 =
-Fixed bug that prevented files from being written
-= 0.8 =
-It is now possible to get suggestions on available domains that are similar to yours.
-= 0.7 =
-Fixed version-crash
-= 0.6 =
-Code-cleaning
-Reference-adding
-Update of version-tags and readme -file
-= 0.4 =
-It is now possible to import multiple domain names at once
-= 0.2 =
-Fixed bug with message on 0000-00-00 expiration dates
-= 0.1 =
-Initial import with stable functionality

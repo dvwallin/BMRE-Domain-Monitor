@@ -235,7 +235,7 @@ function bmre_domain_monitor_options() {
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 	}
 	echo('<div style="float:right;padding-left: 60px;"><a href="http://ras-pi.co" target="_blank">
-			<img src="http://ras-pi.co/wp-content/uploads/2012/06/dwall-reg.png" border="0" alt="ras-pi.co" />
+			<img src="http://dwall.in/wp-content/uploads/2012/06/dwall-reg.png" border="0" alt="ras-pi.co" />
 		</a></div>');
 	echo '<div class="wrap">';
 		echo '<p>Please send any found bugs to bugs@dwall.in</p>';
