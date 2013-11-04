@@ -104,12 +104,23 @@ function bmre_domain_monitor_check()
 			{
 			   $result = "";
 			   $result = $whois->Lookup($domain_item_value);
+			   		echo('<pre>');print_r($result);echo('</pre>');
 			   if ( array_key_exists('expires', $result['regrinfo']['domain']) )
 			   {
 			       $expires = $result['regrinfo']['domain']['expires'];
 			   }else{
-			       if ($item->expires > 0) $expires = $item->expires;	
-			       else $expires = "Unknown";
+			   		foreach ( $result['rawdata'] as $rawkey => $raw_value )
+			   		{
+			   			if ( preg_match('/expires/i', $raw_value) )
+			   			{
+			   				$expires = str_replace('expires: ', '', $raw_value);
+			   			}
+			   		}
+			   		if ( !isset($expires) )
+			   		{
+				       if ($item->expires > 0) $expires = $item->expires;	
+				       else $expires = "Unknown";
+			   		}
 			   }
 			   $thirty_day_limit = date("Y-m-d", strtotime( '+30 days' ) );
 			   if ( strtotime($expires) < strtotime($thirty_day_limit) )
@@ -155,7 +166,7 @@ function bmre_domain_monitor_find_similar_domains($domainarray=null)
 	}
 	global $wpdb, $whois, $plugin_path;
 	$returnation_array = array();
-	$domain_endings_to_check = array('se', 'com', 'org', 'net', 'info', 'de', 'pl', 'dk', 'co.uk');
+	$domain_endings_to_check = array('se', 'com', 'org', 'net', 'info', 'de', 'pl', 'dk', 'co.uk', 'nu');
 	foreach ( $domainarray as $array_item )
 	{
 		$exploded_domain = explode('.', $array_item->domain);
