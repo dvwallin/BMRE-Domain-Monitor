@@ -104,7 +104,6 @@ function bmre_domain_monitor_check()
 			{
 			   $result = "";
 			   $result = $whois->Lookup($domain_item_value);
-			   		echo('<pre>');print_r($result);echo('</pre>');
 			   if ( array_key_exists('expires', $result['regrinfo']['domain']) )
 			   {
 			       $expires = $result['regrinfo']['domain']['expires'];
