@@ -241,8 +241,17 @@ function bmre_domain_monitor_options() {
 	echo '</div>';
 	echo '<div class="wrap">';
 	echo('<h2>BMRE Domain Monitor</h2>');
-	global $wpdb, $plugin_path, $host;
+    global $wpdb, $plugin_path, $host;
+    $set_time_limit = $wpdb->get_results('select bmre_value from ' . $wpdb->prefix . 'bmre_domain_monitor_settings where bmre_key = "set_time_limit" limit 1');
+    if ( $set_time_limit == false || $set_time_limit == 0 || $set_time_limit == null )
+    {
+        echo('Something went wrong in the BMRE Domain Monitor installation and the set_time_limit wasn\'t set properly. Please re-install it.');exit;
 	echo('<p>This plugin will check all added domains every day and notify the sites admin-mail when a domain expires within 30 days or less. It will notify two days in a row to be sure you get it.</p>');
+	echo '<form id="update_set_time_limit" name="update_set_time_limit" action="" method="post">';
+	echo '<label for="set_time_limit">Set time limit</label> ';
+	echo '<input name="set_time_limit" id="set_time_limit" type="text" value="'.$set_time_limit.'" />';
+	echo '<input name="set_time_limit_submit" id="set_time_limit_submit" type="submit" value="Update!" />';
+	echo '</form>';
 	echo('<p>If you dont see a table below that is simply cause you haven\'t added a domain yet.</p>');
 	$result = $wpdb->get_results("select * from " . $wpdb->prefix . "bmre_domain_monitor");
 	echo '<form id="add_domain" name="add_domain" action="" method="post">';
@@ -343,7 +352,13 @@ function bmre_domain_monitor_options() {
 
 
 function bmre_domain_monitor_admin_footer(){
-	global $wpdb, $plugin_path, $host;
+    global $wpdb, $plugin_path, $host;
+    if ( isset($_POST['set_time_limit_submit']) && $_POST['set_time_limit'] != null && $_POST['set_time_limit'] != '' && is_numeric($_POST['set_time_limit']) )
+    {
+        $set_time_limit = _make_safe(trim($_POST['set_time_limit']));
+        $wpdb->query('UPDATE ' . $wpdb->prefix . 'bmre_domain_monitor_settings SET bmre_value="'.$set_time_limit.'" WHERE bmre_key="set_time_limit" LIMIT 1');
+		echo('<meta http-equiv="REFRESH" content="0;url='.get_bloginfo('url').'/wp-admin/options-general.php?page=bmre_domain_monitor">');
+    }
 	if ( isset($_POST['submit']) && $_POST['domain_name'] != null && $_POST['domain_name'] != "" )
 	{
 		$domain_name = _make_safe($_POST['domain_name']);
