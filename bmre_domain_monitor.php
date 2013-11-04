@@ -1,27 +1,26 @@
 <?php
 /*
 Plugin Name: BMRE Domain Monitor
-Plugin URI: http://dwall.in/plugins/bmre_domain_monitor
+Plugin URI: http://ras-pi.co/bmre_domain_monitor
 Description: Keeps track on your domains expiration and warns you before it is about to expire
-Version: 0.8.9
-Author: Dwall.in - David V. Wallin
-Author URI: http://dwall.in
-License: WTFPL
+Version: 0.9.1
+Author: David V. Wallin
+Author URI: http://ras-pi.co
+License: GPLv3
 */
 /*
-           DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
-                   Version 2, December 2004
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
 
-Copyright (C) 2012 David V. Wallin <david@dwall.in>
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-Everyone is permitted to copy and distribute verbatim or modified
-copies of this license document, and changing it is allowed as long
-as the name is changed.
-
-           DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
-  TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
-
- 0. You just DO WHAT THE FUCK YOU WANT TO.
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>. 
 */
 
 include('lib/whois.main.php');
