@@ -63,16 +63,17 @@ function bmre_domain_monitor_install() {
        UNIQUE KEY id (id)
       );";
 
+   $set_time_limit_default_value_sql = "INSERT INTO $settings_table_name (
+    'bmre_key', 'bmre_value'   
+   ) VALUES (
+    'set_time_limit, '60'
+   )"
 
    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
    dbDelta($sql);
    dbDelta($second_sql);
    dbDelta($settings_sql);
-   dbDelta("INSERT INTO $settings_table_name (
-    'bmre_key', 'bmre_value'   
-   ) VALUES (
-    'set_time_limit, '60'
-   )"); 
+   dbDelta($set_time_limit_default_value_sql); 
    add_option("bmre_domain_monitor_db_version", $bmre_domain_monitor_db_version);
 }
 
