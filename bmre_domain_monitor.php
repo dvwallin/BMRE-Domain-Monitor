@@ -106,9 +106,10 @@ function bmre_domain_monitor_check()
 			   $result = $whois->Lookup($domain_item_value);
 			   if ( array_key_exists('expires', $result['regrinfo']['domain']) )
 			   {
-			        $expires = $result['regrinfo']['domain']['expires'];
+			       $expires = $result['regrinfo']['domain']['expires'];
 			   }else{
-			       $expires = "Unknown";
+			       if ($item->expires > 0) $expires = $item->expires;	
+			       else $expires = "Unknown";
 			   }
 			   $thirty_day_limit = date("Y-m-d", strtotime( '+30 days' ) );
 			   if ( strtotime($expires) < strtotime($thirty_day_limit) )
