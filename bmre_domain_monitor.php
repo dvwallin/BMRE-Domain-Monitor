@@ -58,17 +58,22 @@ function bmre_domain_monitor_install() {
     );";
     
    $settings_sql = "CREATE TABLE $settings_table_name (
-						       id int(11) unsigned NOT NLL AUTO_INCREMENT,
-						       bmre_key varchar(256) NOT NULL,
-						       bmre_value varchar(256) NOT NULL,
-						       UNIQUE KEY id (id)
-						       );";
+      id int(11) unsigned NOT NLL AUTO_INCREMENT,
+       bmre_key varchar(256) NOT NULL,
+       bmre_value varchar(256) NOT NULL,
+       UNIQUE KEY id (id)
+      );";
 
 
    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
    dbDelta($sql);
    dbDelta($second_sql);
- 
+   dbDelta($settings_sql);
+   dbDelta("INSERT INTO $settings_table_name (
+    'bmre_key', 'bmre_value'   
+   ) VALUES (
+    'set_time_limit, '60'
+   )"); 
    add_option("bmre_domain_monitor_db_version", $bmre_domain_monitor_db_version);
 }
 
@@ -100,7 +105,7 @@ function bmre_domain_monitor_check()
 {
 	global $wpdb, $whois;
 	$results = $wpdb->get_results("select * from " . $wpdb->prefix . "bmre_domain_monitor where last_check != '".date("Y-m-d")."'");
-
+    $set_time_limit = $wpdb->get_results("select bmre_value from " . $wpdb->prefix . "bmre_domain_settings where bmre_key = 'set_time_limit' limit 1");
 	if ( $results != 0 && $results != false && $results != null )
 	{
 			$domain_array = array();
@@ -129,8 +134,8 @@ function bmre_domain_monitor_check()
 				       else $expires = "Unknown";
 			   		}
 			   }
-			   $thirty_day_limit = date("Y-m-d", strtotime( '+30 days' ) );
-			   if ( strtotime($expires) < strtotime($thirty_day_limit) )
+			   $set_time_limit = date("Y-m-d", strtotime( '+'.$set_time_limit.' days' ) );
+			   if ( strtotime($expires) < strtotime($set_time_limit) )
 			   {
 			   		$notified_check = $wpdb->get_results(
 			   				"select notified from " . $wpdb->prefix . "bmre_domain_monitor where id = ".$domain_item_key." limit 1"
@@ -179,14 +184,14 @@ function bmre_domain_monitor_find_similar_domains($domainarray=null)
 		$exploded_domain = explode('.', $array_item->domain);
 		$domain_endings_to_check[] = ltrim(str_replace($exploded_domain[0], '', $array_item->domain), '.');
 		$domain_endings_to_check = array_unique($domain_endings_to_check);
-		$thirty_day_limit = date("Y-m-d", strtotime( '-20 days' ) );
+		$set_time_limit = date("Y-m-d", strtotime( '-20 days' ) );
 		foreach ( $domain_endings_to_check as $endint_check_item )
 		{
 	   		$domain_check = $wpdb->get_results(
 	   				"select * from " . $wpdb->prefix . "bmre_domain_monitor_domain_checker 
 	   				where domain = '".$exploded_domain[0] . "." . $endint_check_item."' limit 1"
 	   			);
-	   		if ( strtotime($domain_check[0]->last_check) < strtotime($thirty_day_limit) )
+	   		if ( strtotime($domain_check[0]->last_check) < strtotime($set_time_limit) )
 	   		{
 				$domaininfo = $whois->Lookup($exploded_domain[0] . "." . $endint_check_item);
 				foreach ( $domaininfo['rawdata'] as $rawrow_key => $rawrow_value )
@@ -201,7 +206,7 @@ function bmre_domain_monitor_find_similar_domains($domainarray=null)
 						if (	$domain_check != false &&
 								$domain_check != 0 &&
 								$domain_check != null &&
-								strtotime($domain_check[0]->last_check) < strtotime($thirty_day_limit) )
+								strtotime($domain_check[0]->last_check) < strtotime($set_time_limit) )
 						{
 							$wpdb->update(
 								$wpdb->prefix . "bmre_domain_monitor_domain_checker", 
@@ -262,8 +267,8 @@ function bmre_domain_monitor_options() {
 				{
 					$cssextra = "background:#d9fcc9;";
 					$extrainfo = "";
-				   	$thirty_day_limit = date("Y-m-d", strtotime( '+30 days' ) );
-   					if ( strtotime($item->expires) < strtotime($thirty_day_limit) )
+				   	$set_time_limit = date("Y-m-d", strtotime( '+30 days' ) );
+   					if ( strtotime($item->expires) < strtotime($set_time_limit) )
    					{
    						$cssextra = "background:#ffd1d4;";
    						$extrainfo = "<strong>(Expires in 30 or less days)</strong>";
