@@ -248,7 +248,7 @@ function bmre_domain_monitor_options() {
     {
         echo('Something went wrong in the BMRE Domain Monitor installation and the set_time_limit wasn\'t set properly. Please re-install it.');exit;
     }
-	echo('<p>This plugin will check all added domains every day and notify the sites admin-mail when a domain expires within 30 days or less. It will notify two days in a row to be sure you get it.</p>');
+	echo('<p>This plugin will check all added domains every day and notify the sites admin-mail when a domain expires within '.$set_time_limit[0]->bmre_value.' days or less. It will notify two days in a row to be sure you get it.</p>');
 	echo '<form id="update_set_time_limit" name="update_set_time_limit" action="" method="post">';
 	echo '<label for="set_time_limit">Set time limit</label> ';
 	echo '<input name="set_time_limit" id="set_time_limit" type="text" value="'.$set_time_limit[0]->bmre_value.'" />';
@@ -277,11 +277,11 @@ function bmre_domain_monitor_options() {
 				{
 					$cssextra = "background:#d9fcc9;";
 					$extrainfo = "";
-				   	$set_time_limit = date("Y-m-d", strtotime( '+30 days' ) );
+				   	$set_time_limit = date("Y-m-d", strtotime( '+'.$set_time_limit[0]->bmre_value.' days' ) );
    					if ( strtotime($item->expires) < strtotime($set_time_limit) )
    					{
    						$cssextra = "background:#ffd1d4;";
-   						$extrainfo = "<strong>(Expires in 30 or less days)</strong>";
+   						$extrainfo = "<strong>(Expires in ".$set_time_limit[0]->bmre_value." or less days)</strong>";
    					}
    					if ( $item->expires == "Unknown" )
    					{
