@@ -246,6 +246,7 @@ function bmre_domain_monitor_options() {
     if ( $set_time_limit == false || $set_time_limit == 0 || $set_time_limit == null )
     {
         echo('Something went wrong in the BMRE Domain Monitor installation and the set_time_limit wasn\'t set properly. Please re-install it.');exit;
+    }
 	echo('<p>This plugin will check all added domains every day and notify the sites admin-mail when a domain expires within 30 days or less. It will notify two days in a row to be sure you get it.</p>');
 	echo '<form id="update_set_time_limit" name="update_set_time_limit" action="" method="post">';
 	echo '<label for="set_time_limit">Set time limit</label> ';
@@ -366,7 +367,6 @@ function bmre_domain_monitor_admin_footer(){
 		if ( $check_for_domain_name == 0 || $check_for_domain_name == null || $check_for_domain_name == false )
 		{
 			$wpdb->insert($wpdb->prefix . "bmre_domain_monitor", array("domain"=>$domain_name));
-
 			echo('<meta http-equiv="REFRESH" content="0;url='.get_bloginfo('url').'/wp-admin/options-general.php?page=bmre_domain_monitor">');
 		}
 	}
